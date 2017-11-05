@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, ActivityIndicator, TouchableHighlight } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'react-native-elements';
@@ -59,12 +59,12 @@ class Shake extends React.Component {
                     </View>
                     <Text style={styles.title}>{this.state.title}</Text>
                     <Text style={styles.text}>{this.state.description}</Text>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         onPress={this.buttonPress.bind(this)}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>Let's roll</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <Text style={styles.afterButton}>or shake!</Text>
                 </View>
             </View>
