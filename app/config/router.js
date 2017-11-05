@@ -12,7 +12,7 @@ const tabRoutes = {
 	Shake: {
 		screen: Shake,
 		navigationOptions: {
-			tabBarIcon: ({tintColor}) => <Icon name='comments-o' size={25} type='font-awesome'color={tintColor}/>,
+			tabBarIcon: ({tintColor}) => <Icon name='cutlery' size={25} type='font-awesome'color={tintColor}/>,
 		}
 	},
 	List: {
@@ -24,13 +24,18 @@ const tabRoutes = {
 };
 const tabConfig = {
 	tabBarPosition: 'bottom',
-	swipeEnabled: false,
-	lazyLoad: true,
-	animationEnabled: false,
+	// swipeEnabled: false,
+	// lazyLoad: true,
+	// animationEnabled: false,
 	tabBarOptions: {
-		activeTintColor: '#2980b9',
+		showIcon: true,
+		activeTintColor: '#e67e22',
+		inactiveTintColor: 'grey',
 		activeBackgroundColor: 'white',
 		inactiveBackgroundColor: 'white',
+		style: {
+			backgroundColor: 'white',
+		}
 	}
 
 }
