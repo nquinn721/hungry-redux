@@ -2,7 +2,7 @@
 import axios from 'axios';
 const config = {
 	baseUrl: ''
-}
+};
 export default class Service{
 
 	static dispatchPost(dispatch, url, body, types){

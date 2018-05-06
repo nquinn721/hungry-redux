@@ -1,14 +1,17 @@
 import Service from './service';
+import YelpApi from '../../components/yelp';
 
-export const updateProfile = (field, value) => {
-	
-	return (dispatch) => {
-		Service.dispatchPost(dispatch, 'user/update-profile-field', {field, value}, {
-			init: 'UPDATE_PROFILE',
-			success: 'UPDATE_PROFILE_SUCCESS',
-			error: 'UPDATE_PROFILE_FAILED'
-		});	
-	}
+export const updateRestaurants = (lat, lng) => {
+	return function (dispatch) {
+		dispatch({type: 'GETTING_RESTRAUNTS'});
+        YelpApi.search({lat, lng}, (data) => {
+        	dispatch({
+        		type: 'SET_RESTAURANTS',
+				data
+			})
+		})
+    }
+
 }
 
 
@@ -19,5 +22,5 @@ export const setRestaurant = (restaurant) => {
 			data: restaurant
 		})
 	}
-}
+};
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import {AppRegistry, StyleSheet, Text, View, Animated, TouchableOpacity, Image, ListView} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Animated, TouchableOpacity, Image, ListView, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CheckBox from 'react-native-check-box';
-import { setRestaurant } from '../redux/actions/restaurants';
+import CheckBox from 'react-native-checkbox';
+
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1,r2) => r1 != r2
@@ -33,10 +33,11 @@ class List extends React.Component{
         }
         return location
     }
-    renderRow(item){
+    checked = true;
+    renderRow(item, index){
         let address = this.buildAddress(item);
         return(
-            <TouchableOpacity>
+            <TouchableOpacity key={index} onPress={() => this.checkItem(index)}>
                 <View style={styles.listItem}>
                     <View style={styles.left}>
                         <Text style={styles.name}>{item.name}</Text>
@@ -46,31 +47,38 @@ class List extends React.Component{
                     </View>
                     <CheckBox
                             style={styles.checkbox}
-                            isChecked={typeof item.checked === 'undefined' ? true : item.checked}
-                            onClick={() => this.checkItem(item)}
+                            label=""
+                            checked={!item.disabled}
+                            onChange={() => this.checkItem(index)}
                     />
                     </View>
             </TouchableOpacity>
         )
     }
+    checkItem(index){
+        this.props.restaurants.disable(index);
+        this.setState({checked: true});
+    }
     render(){
-                // {this.state.loading ? <Text>Loading...</Text>: <ListView
-                //     style={styles.list}
-                //     dataSource={this.state.dataSource}
-                //     renderRow={(data) => this.renderRow(data)}
-                // />}
-
+        let {restaurants} = this.props.restaurants;
+        if(!restaurants){
+            return (
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <Text style={{color: '#aaa'}}>No Restaurants found</Text>
+                </View>
+            );
+        }
         return(
-            <View style={styles.listContainer}>
+            <ScrollView style={styles.listContainer}>
                 <Text style={styles.intro}>
                     Customize your choice list
                 </Text>
                 {
-                    this.state.restaurants.map((r, i) => {
-                        return (<TouchableOpacity key={i} onPress={() => this.props.setRestaurant(r)}><Text>{r.name}</Text></TouchableOpacity>)
+                    restaurants.map((r, i) => {
+                        return this.renderRow(r, i);
                     })
                 }
-            </View>
+            </ScrollView>
         )
     }
 }
@@ -88,10 +96,10 @@ let styles = StyleSheet.create({
 
     },
     listItem: {
-        borderWidth: 0.5,
-        borderColor: 'black',
+        borderBottomWidth: 1,
+        borderBottomColor: 'black',
         padding:10,
-        flex:1,
+        alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
     },
@@ -110,14 +118,10 @@ let styles = StyleSheet.create({
     type:{
         color:'grey',
         fontSize:10
-    },
-    checkbox:{
-        marginRight:10,
-        alignSelf: 'center',
     }
 
 });
 export default connect(
   (state) => ({restaurants: state.restaurants}), 
-  (dispatch) => (bindActionCreators({setRestaurant}, dispatch))
+  // (dispatch) => (bindActionCreators({setRestaurant}, dispatch))
 )(List);

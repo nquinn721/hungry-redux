@@ -18,6 +18,7 @@ const tabRoutes = {
 	List: {
 		screen: List,
 		navigationOptions: {
+			title: 'Restaurants',
 			tabBarIcon: ({tintColor}) => <Icon name='list' size={25} type='font-awesome' color={tintColor}/>,
 		}
 	}

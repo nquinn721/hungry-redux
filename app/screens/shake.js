@@ -1,12 +1,10 @@
 import React from 'react';
-import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Icon, Button } from 'react-native-elements';
-import RNShakeEvent from 'react-native-shake-event';
 import Image from 'react-native-image-progress';
-// import Config from 'newApp/app/config/config';
-// import gStyles from 'newApp/app/config/globalStyles';
+import { setRestaurant } from '../redux/actions/restaurants';
+import { ShakeEventExpo } from '../components/shakeEvent';
 
 class Shake extends React.Component {
     state = {
@@ -19,15 +17,6 @@ class Shake extends React.Component {
         ]
     }
 
-    componentWillMount() {
-        this.state.image.uri = this.props.restaurants.currentRestaurant.image;
-        console.log(this.props);
-        RNShakeEvent.addEventListener('shake', () => this.buttonPress());
-    }
-
-    componentWillUnmount() {
-        RNShakeEvent.removeEventListener('shake');
-    }
 
     buildAddress(item){
         let location  = '';
@@ -43,29 +32,54 @@ class Shake extends React.Component {
     }
 
     buttonPress() {
+        this.props.setRestaurant(this.props.restaurants.random());
+
+        setTimeout(() => this.waitForButtonPress = false, 2000);
     }
 
 
     render(){
+        let { currentRestaurant, restaurants } = this.props.restaurants;
+
+
+        if(!restaurants){
+            return (
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <Text style={{color: '#aaa'}}>No restaurants found in your area</Text>
+                </View>
+            )
+        }
+
+        if(!this.shakeEventListener){
+            this.shakeEventLisener = true;
+            ShakeEventExpo.addListener(() => {
+                if(!this.waitForButtonPress){
+                    this.buttonPress();
+                    this.waitForButtonPress = true;
+                }
+            });
+        }
+
         return(
 
             <View style={styles.restaurant}>
                 <View style={styles.container}>
+                    <Text>{this.state.a}</Text>
                     <View>
                         <Image
                             style={styles.img}
-                            source={{uri: this.props.restaurants.currentRestaurant.image}}
+                            source={{uri: currentRestaurant.image_url}}
                         />
                     </View>
-                    <Text style={styles.title}>{this.state.title}</Text>
-                    <Text style={styles.text}>{this.state.description}</Text>
+                    <Text style={styles.title}>{currentRestaurant.name}</Text>
+                    <Text style={styles.text}>{currentRestaurant.location && currentRestaurant.location.display_address.join(' ')}</Text>
                     <TouchableOpacity
                         onPress={this.buttonPress.bind(this)}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>Let's roll</Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.afterButton}>or shake!</Text>
+                    <Text style={styles.afterButton}>or shake phone!</Text>
                 </View>
             </View>
         )
@@ -100,7 +114,8 @@ let styles = StyleSheet.create({
         marginTop:30,
         fontSize:25,
         height:70,
-        paddingBottom: 5,
+        padding: 10,
+        textAlign: 'center'
         // fontFamily:'HelveticaNeue-bold'
     },
     img : {
@@ -146,5 +161,5 @@ let styles = StyleSheet.create({
 
 export default connect(
   (state) => ({restaurants: state.restaurants}), 
-  // (dispatch) => (bindActionCreators({getShake, getDates}, dispatch))
+  (dispatch) => (bindActionCreators({setRestaurant}, dispatch))
 )(Shake);

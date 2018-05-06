@@ -1,5 +1,17 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "name": "Hungry?",
+    "icon": "./app/assets/img/icon.png",
+    "version": "2.2.0",
+    "slug": "hungry",
+    "sdkVersion": "23.0.0",
+    "orientation": "portrait",
+    "ios": {
+      "bundleIdentifier": "com.hungryllc.hungry"
+    },
+    "android": {
+      "package": "com.hungryllc.hungry",
+      "versionCode": 4
+    }
   }
 }
