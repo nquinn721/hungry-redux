@@ -4609,12 +4609,6 @@ react-native-scripts@1.5.0:
     rimraf "^2.6.1"
     xdl "45.0.0"
 
-react-native-shake-event@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-shake-event/-/react-native-shake-event-4.0.1.tgz#b167e844b711eff50d44d029537fbb228b2ac6b2"
-  dependencies:
-    invariant "^2.2.2"
-
 "react-native-svg@https://github.com/expo/react-native-svg/archive/5.5.1-exp.1.tar.gz":
   version "5.5.1"
   resolved "https://github.com/expo/react-native-svg/archive/5.5.1-exp.1.tar.gz#0c6e373dbe63cfcbdd465f5b2965ebe011c8962f"
