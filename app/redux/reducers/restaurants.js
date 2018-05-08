@@ -19,7 +19,7 @@ const initialState = {
     },
 	restaurants: null,
 	currentRestaurant: {name: 'Hungry?', location: {display_address: ['Hungry is here to help you find the perfect place to eat based on your interest']}, image_url: 'http://www.ozarlington.com/wp-content/uploads/2017/04/bar-buffet.jpg'},
-	isFetching: false,
+	isFetching: true,
 	error: false
 };
 

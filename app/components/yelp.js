@@ -24,7 +24,7 @@ export default class YelpAPI{
         // Filters
         let limit = 50,
             radius = Math.round(5 * mile),
-            sortBy = distance,
+            sortBy = 'distance',
             openNow = true;
 
         if(typeof params == 'object'){
@@ -37,7 +37,7 @@ export default class YelpAPI{
                 }
             }
         }
-        paramString += `&limit=${limit}&radius=${radius}&sort_by=${distance}&open_now=${openNow}`;
+        paramString += `&limit=${limit}&radius=${radius}&sort_by=${sortBy}&open_now=${openNow}`; 
 
         if(!params.term)
             paramString += '&term=restuarants';
