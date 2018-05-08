@@ -61,7 +61,6 @@ class Shake extends React.Component {
         }
 
         return(
-
             <View style={styles.restaurant}>
                 <View style={styles.container}>
                     <Text>{this.state.a}</Text>
@@ -83,8 +82,6 @@ class Shake extends React.Component {
                 </View>
             </View>
         )
-
-
     }
 }
 
@@ -119,7 +116,7 @@ let styles = StyleSheet.create({
         // fontFamily:'HelveticaNeue-bold'
     },
     img : {
-        height:280,
+        height:250,
         width:332,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10
