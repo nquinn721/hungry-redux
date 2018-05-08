@@ -36,11 +36,14 @@ export default class YelpAPI{
                     paramString += '&' + i + '=' + params[i];
                 }
             }
-        }
-        paramString += `&limit=${limit}&radius=${radius}&sort_by=${sortBy}&open_now=${openNow}`; 
+        } 
+
+        paramString += `&limit=${limit}`//&radius=${radius}&sort_by=${sortBy}&open_now=${openNow}`; 
 
         if(!params.term)
-            paramString += '&term=restuarants';
+            paramString += '&term=food';
+
+
 
         console.log(paramString)
         fetch('https://api.yelp.com/v3/businesses/search?' + paramString, {
