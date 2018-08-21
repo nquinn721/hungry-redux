@@ -1,3 +1,5 @@
+import RestaurantComponent from 'hungre/components/restaurantComponent';
+
 const initialState = {
 	random: function () {
 		let availableRestaurants = this.availableRestaurants,
@@ -25,7 +27,6 @@ const initialState = {
 
 
 export default (state = initialState, action) => {
-	
 	switch(action.type){
 		case 'GETTING_RESTRAUNTS':
 			return {
@@ -33,13 +34,12 @@ export default (state = initialState, action) => {
 				isFetching: true
 			};
 		case 'SET_RESTAURANTS':
-			console.log(action.data)
 			return {
 				...state,
                 isFetching: false,
                 restaurants: action.data.length && action.data,
 				availableRestaurants: action.data && action.data.filter(r => !r.disabled)
-			}
+			};
 		case 'SET_CURRENT_RESTAURANT': 
 			return {
 				...state,

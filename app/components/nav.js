@@ -10,10 +10,10 @@ const mapStateToProps = (state) => {
  return {
     navigationState: state.nav,
   }
-}
+};
 class TabBarNavigation extends React.Component {
 render(){
-    const { dispatch, navigationState } = this.props
+    const { dispatch, navigationState } = this.props;
     return (
       <TabBar
         navigation={

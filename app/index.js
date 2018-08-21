@@ -14,10 +14,12 @@ class Index extends React.Component{
   state = {};
 
   componentWillMount(){
-    this._getLocationAsync();
+      console.log('component will mount');
+      this._getLocationAsync();
   }
 
   _getLocationAsync = async () => {
+      console.log('get location');
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== 'granted') {
           return this.setState({noLocation: true});
@@ -25,8 +27,10 @@ class Index extends React.Component{
 
 
       let location = await Location.getCurrentPositionAsync({});
+      console.log(location);
 
       if(location){
+          console.log(this.props);
           this.props.updateRestaurants(location.coords.latitude, location.coords.longitude);
       }
   };
@@ -35,7 +39,7 @@ class Index extends React.Component{
         const {isFetching} = this.props.restaurants;
         if(this.state.noLocation){
             return (
-                <View style={gStyles.container}>
+                <View style={Styles.container}>
                     <View style={styles.statusBar}></View>
                     <Header />
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10}}>
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
         borderColor: '#e67e22',
         backgroundColor : '#e67e22',
     }
-})
+});
 
 
 

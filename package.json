@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.17.0",
     "expo": "23.0.0",
+    "geolib": "^2.0.24",
     "react": "16.0.0",
     "react-native": "0.50.0",
     "react-native-checkbox": "^2.0.0",

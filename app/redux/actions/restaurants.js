@@ -1,4 +1,3 @@
-import Service from './service';
 import YelpApi from '../../components/yelp';
 
 export const updateRestaurants = (lat, lng) => {
@@ -11,8 +10,7 @@ export const updateRestaurants = (lat, lng) => {
 			})
 		})
     }
-
-}
+};
 
 
 export const setRestaurant = (restaurant) => {

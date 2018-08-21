@@ -1,6 +1,6 @@
-
+import Settings from './settings';
 const apiKey = 'u83D7ql4RggokuyKsGHV7noCEF6IWAjIzfK14mqCyUcuqZzVRFl4MXjMfv2FgJEyLMxyICtAfmv9XQNO1-xu1E5n4YtuWc5GqQz6FVlcydzwwOIIsoa2qMQE0WnKWnYx';
-const mile = 1609.34;
+
 
 let availableSearchParams = {
     term: true,
@@ -21,11 +21,17 @@ export default class YelpAPI{
         let lng = params.lng || -83.2710139;
         let paramString = 'latitude=' + lat + '&longitude=' + lng;
 
+        console.log('params 1');
+        console.log(params);
+
         // Filters
         let limit = 50,
-            radius = Math.round(5 * mile),
+            radius = Settings.miles(5),
             sortBy = 'distance',
             openNow = true;
+
+        console.log('params 2');
+        console.log(params);
 
         if(typeof params == 'object'){
             for(let i in params) {
@@ -36,7 +42,9 @@ export default class YelpAPI{
                     paramString += '&' + i + '=' + params[i];
                 }
             }
-        } 
+        }
+
+
 
         paramString += `&limit=${limit}`//&radius=${radius}&sort_by=${sortBy}&open_now=${openNow}`; 
 
@@ -45,7 +53,8 @@ export default class YelpAPI{
 
 
 
-        console.log(paramString)
+        console.log('para');
+        console.log(paramString);
         fetch('https://api.yelp.com/v3/businesses/search?' + paramString, {
             method: 'GET',
             headers: {
@@ -54,12 +63,9 @@ export default class YelpAPI{
         })
             .then(d => d.json())
             .then(d => {
+                console.log(d);
                 cb(d.businesses)
             })
             .catch(e => console.error(e))
-
     }
-
-
-
 }
